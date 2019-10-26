@@ -43,6 +43,9 @@ gem 'devise'
 gem 'hamlit-rails'
 gem 'rolify'
 gem 'cancancan'
+gem 'pry-rails', :group => :development
+gem 'administrate'
+gem 'simple_form'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
