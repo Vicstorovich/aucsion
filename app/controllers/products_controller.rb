@@ -22,12 +22,19 @@ class ProductsController < ApplicationController
   end
 
   def update
+    product.user_updated_price(current_user)
+
     if product.update(product_params)
       redirect_to @product, notice: 'Product was successfully updated.'
     else
-      render :edit
+      if product.user_id == current_user
+        render :edit
+      else
+        render :show
+      end
     end
   end
+
 
   def destroy
     product.destroy
@@ -42,6 +49,6 @@ class ProductsController < ApplicationController
   helper_method :product
 
   def product_params
-    params.require(:product).permit(:title, :price)
+    params.require(:product).permit(:title, :price, :user_updated_price)
   end
 end

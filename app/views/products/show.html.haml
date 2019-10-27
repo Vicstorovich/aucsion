@@ -1,9 +1,15 @@
+%h1 Auction Product
 %p
   %strong Title:
   = product.title
 %p
   %strong Price:
-  = product.price
-= link_to 'Edit', edit_product_path(product)
-|
+  = simple_form_for(product, html: { class: 'form-inline' }) do |form|
+    = render "shared/errors", resource: product
+    .field
+      = render :partial => "products/price", :locals => { :form => form }
+    .actions
+      = form.submit "Go price"
+
 = link_to 'Back', products_path
+
