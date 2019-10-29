@@ -1,0 +1,16 @@
+%h1 Auction Product
+.listt
+  %p
+    %strong Title:
+    = product.title
+  %p
+    %strong New price:
+    = render partial: "products/product_price", locals: { product: product }
+    = simple_form_for(product, html: { class: 'form-inline' }, remote: true) do |form|
+      = render "shared/errors", resource: product
+      .field
+        = render partial: "products/price", locals: { form: form }
+      .actions
+        = form.submit "Go price"
+= link_to 'Back', products_path
+
