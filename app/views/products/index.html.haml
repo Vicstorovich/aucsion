@@ -1,28 +1,29 @@
 %p#notice= notice
-%p= link_to 'Back', root_path
-.center.jumbotron
-  %h1 Products
-  %table
-    - @products.each do |product|
-      %tr{:class => "#{cycle('list_line_odd', 'list_line_even')}"}
-        %td.list_price
-          %dl
-            %dt
-              %h3 Price
-            %dd
-              %h4= product.price
-        %td.list_description
-          %dl
-            %dt
-              %h3= product.title
-            %dd
-              %p Цена на данный момент
-        %td.list_actions
-          = link_to 'Auction', product
-          %br/
-          = link_to 'Edit', edit_product_path(product)
-          %br/
-          = link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' }
+.list_P
+  %p= link_to 'Back', root_path
+  .center.jumbotron
+    %h1 Products
+    %table
+      - @products.each do |product|
+        %tr{:class => "#{cycle('list_line_odd', 'list_line_even')}"}
+          %td.list_price
+            %dl
+              %dt
+                %h3 Start price
+              %dd
+                %h4= product.price
+          %td.list_description
+            %dl
+              %dt
+                %h3 End price
+              %dd
+                %h4= render partial: "products/product_price", locals: { product: product }
+          %td.list_actions
+            = link_to 'Auction', product
+            %br/
+            = link_to 'Edit', edit_product_path(product)
+            %br/
+            = link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' }
   %br/
   = link_to 'New Product', new_product_path
 

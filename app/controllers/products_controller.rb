@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  after_action :publish_product, only: [:update]
+
   def index
     @products = Product.all
   end
@@ -50,5 +52,17 @@ class ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(:title, :price, :user_updated_price)
+  end
+
+  def publish_product
+    return if product.errors.any?
+
+    ActionCable.server.broadcast(
+      "products",
+      ApplicationController.render(
+        partial: "products/product_price",
+        locals: { product: product }
+        )
+      )
   end
 end
